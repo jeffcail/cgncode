@@ -1,0 +1,62 @@
+package handler
+
+import (
+    "net/http"
+    "github.com/labstack/echo/v4"
+    "github.com/jeffcail/cgncode/models"
+    "github.com/jeffcail/cgncode/service"
+)
+
+type {{.Name}}Handler struct{}
+
+// Create{{.Name}} creates a new {{.Name}}
+func (this *{{.Name}}Handler) Create{{.Name}}(c echo.Context) error {
+    var input models.{{.Name}}
+    if err := c.Bind(&input); err != nil {
+        return c.JSON(http.StatusBadRequest, err)
+    }
+
+    if err := service.New{{.Name}}Service().Create{{.Name}}(&input); err != nil {
+        return c.JSON(http.StatusInternalServerError, err)
+    }
+
+    return c.JSON(http.StatusOK, input)
+}
+
+// Get{{.Name}} retrieves an existing {{.Name}}
+func (this *{{.Name}}Handler) Get{{.Name}}(c echo.Context) error {
+    id := c.Param("id")
+
+    result, err := service.New{{.Name}}Service().Get{{.Name}}(id)
+    if err != nil {
+        return c.JSON(http.StatusInternalServerError, err)
+    }
+
+    return c.JSON(http.StatusOK, result)
+}
+
+// Update{{.Name}} updates an existing {{.Name}}
+func (this *{{.Name}}Handler) Update{{.Name}}(c echo.Context) error {
+    id := c.Param("id")
+    var input models.{{.Name}}
+    if err := c.Bind(&input); err != nil {
+        return c.JSON(http.StatusBadRequest, err)
+    }
+
+    if err := service.New{{.Name}}Service().Update{{.Name}}(id, &input); err != nil {
+        return c.JSON(http.StatusInternalServerError, err)
+    }
+
+    return c.JSON(http.StatusOK, input)
+}
+
+// Delete{{.Name}} deletes an existing {{.Name}}
+func (this *{{.Name}}Handler) Delete{{.Name}}(c echo.Context) error {
+    id := c.Param("id")
+
+    if err := service.New{{.Name}}Service().Delete{{.Name}}(id); err != nil {
+        return c.JSON(http.StatusInternalServerError, err)
+    }
+
+    return c.JSON(http.StatusOK, id)
+}
