@@ -1,7 +1,7 @@
-### <center>cgncode</center>
-#### <center>Automatically generate curd code, already generated code will not be generated repeatedly</center>
-#### <center><a href="https://github.com/jeffcail/cgncode/releases"><img src="https://img.shields.io/github/release/cgncode/releases.svg" alt="GitHub release"></a><a href="https://github.com/jeffcail/cgncode/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license"></a><center>
-#### <center><a href="./README.md" target="_blank">Simplified Chinese</a> | <a href="./README_en.md" target="_blank">English</a> </center>
+### <p align="center">cgncode</center>
+#### <p align="center">Automatically generate curd code, already generated code will not be generated repeatedly</p>
+#### <p align="center"><a href="https://github.com/jeffcail/cgncode/releases"><img src="https://img.shields.io/github/release/cgncode/releases.svg" alt="GitHub release"></a><a href="https://github.com/jeffcail/cgncode/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license"></a></p>
+#### <p align="center"><a href="./README.md" target="_blank">Simplified Chinese</a> | <a href="./README_en.md" target="_blank">English</a></p>
 
 ## Help command
 ```shell

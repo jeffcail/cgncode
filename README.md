@@ -1,7 +1,7 @@
-### <center>cgncode</center>
-#### <center>自动生成curd代码, 已经生成的代码，不会重复生成</center>
-#### <center><a href="https://github.com/jeffcail/cgncode/releases"><img src="https://img.shields.io/github/release/cgncode/releases.svg" alt="GitHub release"></a><a href="https://github.com/jeffcail/cgncode/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license"></a><center>
-#### <center><a href="./README.md" target="_blank">简体中文</a> | <a href="./README_en.md" target="_blank">English</a> </center>
+### <p align="center">cgncode</p>
+#### <p align="center">自动生成curd代码, 已经生成的代码，不会重复生成</p>
+#### <p align="center"><a href="https://github.com/jeffcail/cgncode/releases"><img src="https://img.shields.io/github/release/cgncode/releases.svg" alt="GitHub release"></a><a href="https://github.com/jeffcail/cgncode/blob/master/LICENSE"><img src="https://img.shields.io/github/license/mashape/apistatus.svg" alt="license"></a><p>
+#### <p align="center"><a href="./README.md" target="_blank">简体中文</a> | <a href="./README_en.md" target="_blank">English</a> </p>
 
 ## 帮助
 ```shell
