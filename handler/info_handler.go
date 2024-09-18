@@ -7,27 +7,27 @@ import (
 	"net/http"
 )
 
-type UserHandler struct{}
+type InfoHandler struct{}
 
-// CreateUser creates a new User
-func (this *UserHandler) CreateUser(c echo.Context) error {
-	var input models.User
+// CreateInfo creates a new Info
+func (this *InfoHandler) CreateInfo(c echo.Context) error {
+	var input models.Info
 	if err := c.Bind(&input); err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	if err := service.NewUserService().CreateUser(&input); err != nil {
+	if err := service.NewInfoService().CreateInfo(&input); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
 	return c.JSON(http.StatusOK, input)
 }
 
-// GetUser retrieves an existing User
-func (this *UserHandler) GetUser(c echo.Context) error {
+// GetInfo retrieves an existing Info
+func (this *InfoHandler) GetInfo(c echo.Context) error {
 	id := c.Param("id")
 
-	result, err := service.NewUserService().GetUser(id)
+	result, err := service.NewInfoService().GetInfo(id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
@@ -35,26 +35,26 @@ func (this *UserHandler) GetUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-// UpdateUser updates an existing User
-func (this *UserHandler) UpdateUser(c echo.Context) error {
+// UpdateInfo updates an existing Info
+func (this *InfoHandler) UpdateInfo(c echo.Context) error {
 	id := c.Param("id")
-	var input models.User
+	var input models.Info
 	if err := c.Bind(&input); err != nil {
 		return c.JSON(http.StatusBadRequest, err)
 	}
 
-	if err := service.NewUserService().UpdateUser(id, &input); err != nil {
+	if err := service.NewInfoService().UpdateInfo(id, &input); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 
 	return c.JSON(http.StatusOK, input)
 }
 
-// DeleteUser deletes an existing User
-func (this *UserHandler) DeleteUser(c echo.Context) error {
+// DeleteInfo deletes an existing Info
+func (this *InfoHandler) DeleteInfo(c echo.Context) error {
 	id := c.Param("id")
 
-	if err := service.NewUserService().DeleteUser(id); err != nil {
+	if err := service.NewInfoService().DeleteInfo(id); err != nil {
 		return c.JSON(http.StatusInternalServerError, err)
 	}
 

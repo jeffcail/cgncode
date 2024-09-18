@@ -4,6 +4,9 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"github.com/jeffcail/cgncode/dt"
+	"github.com/jeffcail/cgncode/tools"
+	"github.com/jeffcail/cgncode/vm"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -21,7 +24,9 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		initVm()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -33,6 +38,12 @@ func Execute() {
 	}
 }
 
+func initVm() {
+	vm.CreateEngine()
+}
+
+var models []dt.ModelInfo
+
 func init() {
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
@@ -42,5 +53,10 @@ func init() {
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	//rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	var err error
+	models, err = tools.ParseModels("./models")
+	if err != nil {
+		panic(err)
+	}
 }

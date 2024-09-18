@@ -4,11 +4,11 @@ Copyright © 2024 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"errors"
 	"fmt"
 	"github.com/jeffcail/cgncode/do"
 	"github.com/jeffcail/cgncode/dt"
-	"github.com/jeffcail/cgncode/tools"
-	"github.com/jeffcail/cgncode/vm"
+	"log"
 	"os"
 	"strings"
 	"text/template"
@@ -27,7 +27,6 @@ Cobra is a CLI library for Go that empowers applications.
 This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		initVm()
 		runCode()
 	},
 }
@@ -47,13 +46,7 @@ func init() {
 	codeCmd.Flags().String("code", "c", "generate code")
 }
 
-func initVm() {
-	vm.CreateEngine()
-}
-
 func runCode() {
-	fmt.Println("run handler")
-
 	handlerTem, err := os.ReadFile("./templates/handler.template")
 	if err != nil {
 		panic(err)
@@ -69,12 +62,25 @@ func runCode() {
 		panic(err)
 	}
 
-	models, err := tools.ParseModels("./models")
-	if err != nil {
-		panic(err)
-	}
+	checkModel(models)
 
-	if err = generateCode(models, string(handlerTem), string(serviceTem), string(dtoTem)); err != nil {
+	var ms []dt.ModelInfo
+	for _, model := range models {
+		strHandler := compactStr("./handler/", strings.ToLower(model.Name), "_", "handler.go")
+		if _, err = os.Stat(strHandler); errors.Is(err, os.ErrNotExist) {
+			ms = append(ms, model)
+		}
+		if _, err = os.Stat(compactStr("./dto/", strings.ToLower(model.Name), "_", "dto.go")); errors.Is(err, os.ErrNotExist) {
+			ms = append(ms, model)
+		}
+
+		if _, err = os.Stat(compactStr("./service/", strings.ToLower(model.Name), "_", "service.go")); errors.Is(err, os.ErrNotExist) {
+			ms = append(ms, model)
+		}
+	}
+	checkModel(ms)
+
+	if err = generateCode(ms, string(handlerTem), string(serviceTem), string(dtoTem)); err != nil {
 		panic(err)
 	}
 }
@@ -135,4 +141,18 @@ func generateCode(models []dt.ModelInfo, handlerTemplate, serviceTemplate, dtoTe
 		}
 	}
 	return nil
+}
+
+func checkModel(models []dt.ModelInfo) {
+	if len(models) == 0 {
+		log.Fatal("no models")
+	}
+}
+
+func compactStr(str ...string) string {
+	var builder strings.Builder
+	for _, s := range str {
+		builder.WriteString(s)
+	}
+	return builder.String()
 }
